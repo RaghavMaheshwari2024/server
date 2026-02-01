@@ -4,11 +4,89 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+//generator client {
+//  provider = "prisma-client"
+//  output   = "../generated/prisma"
+//}
+
+//datasource db {
+//  provider = "postgresql"
+//}
+
+
+
+
+// ********Prisma Schema*********** //
+// ********Voting Server Backend*** //
+
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// ENUMS
+
+enum ElectionStatus {
+  CREATED
+  OPEN
+  CLOSED
+  FINALIZED
+}
+
+// MODELS
+
+model Election {
+  electionId String @id
+  status     ElectionStatus
+
+  // Relations
+  candidates   Candidate[]
+  voters       VoterRecord[]
+  votePayloads VotePayload[]
+
+  @@map("elections")
+}
+
+model Candidate {
+  candidateId String @id
+  name         String
+  party        String?
+  symbol       String?
+
+  electionId String
+  election   Election @relation(fields: [electionId], references: [electionId])
+
+  @@index([electionId])
+  @@map("candidates")
+}
+
+model VoterRecord {
+  id          Int     @id @default(autoincrement())
+  voterId     String
+  authMetaRef String
+  hasVoted    Boolean @default(false)
+
+  electionId String
+  election   Election @relation(fields: [electionId], references: [electionId])
+
+  @@unique([electionId, voterId])
+  @@index([electionId])
+  @@map("voter_records")
+}
+
+model VotePayload {
+  payloadId        String @id
+  encryptedPayload Bytes
+  encryptedMask    Bytes
+  secretShare      Bytes
+  f                Int
+
+  electionId String
+  election   Election @relation(fields: [electionId], references: [electionId])
+
+  @@index([electionId])
+  @@map("vote_payloads")
 }
