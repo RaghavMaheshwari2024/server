@@ -1,5 +1,7 @@
 import prisma from '../prisma/client';
 
+// Add a new candidate to an election
+
 exports.addCandidate = async (req, res) => {
     try {
         const { electionID, candidateID, name, party, symbol } = req.body;
@@ -23,7 +25,7 @@ exports.addCandidate = async (req, res) => {
 exports.getElection = async (req, res) =>{
     try{
         const {electionID} = req.params;
-        
+
         const election = await prisma.election.findUnique({
             where: { electionID }
         });

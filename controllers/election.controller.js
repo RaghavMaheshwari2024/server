@@ -1,5 +1,7 @@
 import prisma from '../config/db';
 
+// Create a new election
+
 exports.createElection = async (req, res) => {
     try{
         const {electionID} = req.body;
