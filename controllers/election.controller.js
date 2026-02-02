@@ -28,7 +28,7 @@ exports.updateElectionStatus = async (req, res) => {
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}
+};
 
 exports.getElection = async (req, res) => {
     try{
@@ -40,5 +40,5 @@ exports.getElection = async (req, res) => {
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}
+};
 
