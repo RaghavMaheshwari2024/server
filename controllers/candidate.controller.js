@@ -12,7 +12,7 @@ exports.addCandidate = async (req, res) => {
                 candidateID,
                 name,
                 party,
-                symbol,
+                symbol
             }
         });
 
@@ -22,16 +22,18 @@ exports.addCandidate = async (req, res) => {
     }
 };
 
-exports.getElection = async (req, res) =>{
+exports.addCondidate = async (req, res) => {
     try{
         const {electionID} = req.params;
 
-        const election = await prisma.election.findUnique({
-            where: { electionID }
+        const candidates = await prisma.candidate.findMany({
+            where : { electionID }
         });
-        res.status(200).json(election);
-    }catch(err){
-        res.status(500).json({error: err.message});
+
+        res.json(candidates);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
+
 
