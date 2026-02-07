@@ -1,8 +1,8 @@
-import prisma from '../prisma/client';
+import prisma from '../config/db.js';
 
 // Add a new candidate to an election
 
-exports.addCandidate = async (req, res) => {
+export const createCandidate = async (req, res) => {
     try {
         const { electionID, candidateID, name, party, symbol } = req.body;
 
@@ -22,18 +22,16 @@ exports.addCandidate = async (req, res) => {
     }
 };
 
-exports.addCondidate = async (req, res) => {
-    try{
-        const {electionID} = req.params;
+export const getCandidateInfo = async (req, res) => {
+    try {
+        const { candidateId } = req.params;
 
-        const candidates = await prisma.candidate.findMany({
-            where : { electionID }
+        const candidate = await prisma.candidate.findUnique({
+            where: { candidateID: candidateId }
         });
 
-        res.json(candidates);
+        res.json(candidate);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
-
-

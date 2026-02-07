@@ -1,8 +1,8 @@
-import prisma from '../config/db';
+import prisma from '../config/db.js';
 
 // submit a vote
 
-exports.submitVote = async(req, res) => {
+export const submitVote = async(req, res) => {
     try{
         const{
             electionID,

@@ -1,6 +1,7 @@
-require('dotenv').config();
-import { listen } from './app';
-import { $connect } from './config/db';
+import dotenv from 'dotenv';
+dotenv.config();
+import app from './app.js';
+import { $connect } from './config/db.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -9,7 +10,7 @@ async function startServer() {
     await $connect();
     console.log("Database connected");
 
-    listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (err) {

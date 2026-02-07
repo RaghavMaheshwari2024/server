@@ -1,8 +1,8 @@
-import prisma from '../config/db';
+import prisma from '../config/db.js';
 
 // Register a new voter
 
-exports.registerVoter = async (req, res) => {
+export const registerVoter = async (req, res) => {
     try {
         const { electionID, voterID, authMetaRef } = req.body;
 

@@ -1,13 +1,13 @@
-import prisma from '../config/db';
+import prisma from '../config/db.js';
 
 // Create a new election
 
-exports.createElection = async (req, res) => {
+export const createElection = async (req, res) => {
     try{
-        const {electionID} = req.body;
+        const {electionId} = req.body;
         const newElection = await prisma.election.create({
             data: {
-                electionID,
+                electionId,
                 status: "CREATED"
             }
         });
@@ -17,11 +17,11 @@ exports.createElection = async (req, res) => {
     }
 };
 
-exports.updateElectionStatus = async (req, res) => {
+export const updateElectionStatus = async (req, res) => {
     try{
-        const {electionID, status} = req.body;
+        const {electionId, status} = req.body;
         const updated = await prisma.election.update({
-            where: { electionID },
+            where: { electionId },
             data: { status }
         });
 
@@ -32,11 +32,11 @@ exports.updateElectionStatus = async (req, res) => {
     }
 };
 
-exports.getElection = async (req, res) => {
+export const getElectionInfo = async (req, res) => {
     try{
-        const {electionID} = req.params;
+        const {electionId} = req.params;
         const election = await prisma.election.findUnique({
-            where: { electionID }
+            where: {electionId }
         });
         res.status(200).json(election);
     }catch(err){
