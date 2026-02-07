@@ -4,12 +4,12 @@ import prisma from '../config/db.js';
 
 export const createCandidate = async (req, res) => {
     try {
-        const { electionID, candidateID, name, party, symbol } = req.body;
+        const { electionId, candidateId, name, party, symbol } = req.body;
 
         const Candidate = await prisma.candidate.create({
             data: {
-                electionID,
-                candidateID,
+                electionId,
+                candidateId,
                 name,
                 party,
                 symbol
@@ -27,7 +27,7 @@ export const getCandidateInfo = async (req, res) => {
         const { candidateId } = req.params;
 
         const candidate = await prisma.candidate.findUnique({
-            where: { candidateID: candidateId }
+            where: { candidateId: candidateId }
         });
 
         res.json(candidate);
