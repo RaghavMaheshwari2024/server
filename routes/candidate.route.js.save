@@ -6,10 +6,17 @@ const router = express.Router();
 
 // So technicallly when we hit here we by default post a candidate
 
-// Creating a candidate
+// Creating a candidate  
 router.post('/', controller.createCandidate);
 
+
+// Close this endpoint when the Election Period Starts
+
+
+// Just
+
 // Getting the candidate info
+
 router.get('/:candidateId', controller.getCandidateInfo);
 
 export default router;
