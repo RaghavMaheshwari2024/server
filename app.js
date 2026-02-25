@@ -13,7 +13,7 @@ app.use('/candidate',candidateRoutes);
 app.use('/voter',voterRoutes);
 app.use('/vote',voteRoutes);
 
-
+const new = express()
 
 
 export default app;

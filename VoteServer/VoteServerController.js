@@ -6,7 +6,7 @@ import { WebSocketServer } from 'ws';
 import fs from 'fs';
 import {randomInt} from 'crypto';
 import {verifyClient} from './utils/verify.js'
-
+import {EventEmitter } from 'node'
 const app= express();
 
 app.use(express.json());
